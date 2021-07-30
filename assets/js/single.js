@@ -1,7 +1,14 @@
 var issueContainerEl = document.querySelector("#issues-container");
+var repoNameEl = document.querySelector("#repo-name");
 
+var getRepoName = function() {
+  var queryString = document.location.search;
+  var repoName = queryString.split("=")[1];
+  getRepoIssues(repoName);
+  repoNameEl.textContent = repoName;
+}
 
-var getRepoIssues = function(repo) {
+var getRepoIssues = function(repo) {    //why is repo in that function, is it because of the consol.log?
   console.log(repo);
   var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
 
@@ -17,6 +24,8 @@ var getRepoIssues = function(repo) {
     }
   });
 };
+
+
 
 var displayIssues = function(issues) {
   if (issues.length === 0) {
@@ -52,4 +61,5 @@ var displayIssues = function(issues) {
   }
 };
 
-getRepoIssues("DylanShoemaker/robot-gladiators");
+
+getRepoName();
